@@ -165,6 +165,21 @@ $this->registerUninstallHook(function($Callback) {
 
     $DB->commit();
 });
+include __DIR__ . '/includes/User.php';
+include __DIR__ . '/includes/Users.php';
 
+if (CURRENT_UNIVERSE == \crisp\Universe::UNIVERSE_TOSDR) {
+    \crisp\core\Template::addtoNavbar("admin", '<span class="badge badge-danger"><i class="fas fa-shield-alt"></i> ADMIN</span>', "/admin_dashboard", "_self", -1, "right");
+} else {
+    \crisp\core\Template::addtoNavbar("login", $this->getTranslation("login"), "/login", "_self", 99);
+}
 
-\crisp\core\Template::addtoNavbar("login", $this->getTranslation("login"), "/login");
+if (isset($_SESSION[\crisp\core\Config::$Cookie_Prefix . "session_login"])) {
+
+    $User = new \crisp\plugin\admin\User($_SESSION[\crisp\core\Config::$Cookie_Prefix . "session_login"]["User"]);
+
+    if (!$User->isSessionValid() || CURRENT_UNIVERSE !== crisp\Universe::UNIVERSE_TOSDR) {
+        unset($_SESSION[\crisp\core\Config::$Cookie_Prefix . "session_login"]);
+        crisp\Universe::changeUniverse(crisp\Universe::UNIVERSE_PUBLIC);
+    }
+}

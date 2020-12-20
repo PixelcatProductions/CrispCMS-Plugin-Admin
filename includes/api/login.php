@@ -24,4 +24,5 @@ if (!$User->createSession()) {
     $this->response(array("SESSION_ERROR"), "Failed to create session");
     exit;
 }
+crisp\Universe::changeUniverse(crisp\Universe::UNIVERSE_TOSDR, true);
 $this->response(false, "OK");
