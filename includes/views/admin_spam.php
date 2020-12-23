@@ -26,17 +26,22 @@ if (!isset($_GET["user"])) {
         $_vars["Notice"] = array("Text" => $this->getTranslation("csrf_mismatch"), "Type" => "danger", "Icon" => "fas fa-exclamation-triangle");
     } else {
 
-        if (filter_var($_GET["user"], FILTER_VALIDATE_EMAIL)) {
-            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByEmail($_GET["user"]);
-        } elseif (is_numeric($_GET["user"])) {
-            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByID($_GET["user"]);
+        if (filter_var($_GET["user"], FILTER_VALIDATE_EMAIL) || strpos($_GET["user"], "email:") !== false) {
+            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByEmail((strpos($_GET["user"], "email:") !== false ? substr($_GET["user"], 6) : $_GET["user"]));
+        } elseif (is_numeric($_GET["user"]) || strpos($_GET["user"], "id:") !== false) {
+            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByID((strpos($_GET["user"], "id:") !== false ? substr($_GET["user"], 3) : $_GET["user"]));
         } else {
-            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByUsername($_GET["user"]);
+            $_vars["FoundUser"] = crisp\plugin\admin\Phoenix::fetchByUsername((strpos($_GET["user"], "username:") !== false ? substr($_GET["user"], 9) : $_GET["user"]));
         }
-        if (!$_vars["FoundUser"]) {
-            $_vars["Notice"] = array("Text" => $this->getTranslation("user_not_found"), "Type" => "danger", "Icon" => "fas fa-search");
-            unset($_vars["FoundUser"]);
+        if (!$_vars["FoundUser"] || count($_vars["FoundUser"]) > 1) {
+            if (count($_vars["FoundUser"]) > 1) {
+                $_vars["Notice"] = array("Text" => $this->getTranslation("multiple_matches", count($_vars["FoundUser"])), "Type" => "danger", "Icon" => "fas fa-search");
+            } else {
+                $_vars["Notice"] = array("Text" => $this->getTranslation("user_not_found"), "Type" => "danger", "Icon" => "fas fa-search");
+            }
         } else {
+
+            $_vars["FoundUser"] = $_vars["FoundUser"][0];
             $_vars["CaseComments"] = crisp\plugin\admin\Phoenix::fetchCaseCommentsByUser($_vars["FoundUser"]["id"]);
             $_vars["PointComments"] = crisp\plugin\admin\Phoenix::fetchPointCommentsByUser($_vars["FoundUser"]["id"]);
             $_vars["DocumentComments"] = crisp\plugin\admin\Phoenix::fetchDocumentCommentsByUser($_vars["FoundUser"]["id"]);
@@ -96,7 +101,17 @@ if (!isset($_GET["user"])) {
                         break;
                 }
 
-                $_vars["Notice"] = array("Text" => $this->getTranslation("user_purged", count($Array)), "Type" => "success", "Icon" => "fas fa-check");
+                if ($_GET["action"] != "deactivate") {
+                    $_vars["Notice"] = array("Text" => $this->getTranslation("user_purged", count($Array)), "Type" => "success", "Icon" => "fas fa-check");
+                } else {
+                    $PhoenixUser = new crisp\plugin\admin\PhoenixUser($_vars["FoundUser"]["id"]);
+                    if ($PhoenixUser->deactivate()) {
+                        $_vars["Notice"] = array("Text" => $this->getTranslation("user_deactivated"), "Type" => "success", "Icon" => "fas fa-check");
+                        $_vars["FoundUser"] = $PhoenixUser->fetch();
+                    } else {
+                        $_vars["Notice"] = array("Text" => $this->getTranslation("failed_user_deactivated"), "Type" => "danger", "Icon" => "fas fa-times-o");
+                    }
+                }
             }
             $_vars["committed"] = $Array;
         }

@@ -80,6 +80,15 @@ class PhoenixUser {
         return $Action;
     }
 
+    public function deactivate() {
+        if ($this->UserID === null) {
+            return null;
+        }
+
+        $statement = $this->Database_Connection->prepare("UPDATE users SET \"deactivated\" = true WHERE id = :ID");
+        return $statement->execute(array(":ID" => $this->UserID));
+    }
+
     public function verifyPassword($String) {
         return password_verify($String, $this->fetch()["encrypted_password"]);
     }

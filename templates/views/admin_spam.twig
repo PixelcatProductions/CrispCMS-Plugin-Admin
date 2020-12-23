@@ -34,23 +34,28 @@ Die Variablen unten sind sehr wichtig bitte bei jeder Datei setzen!
     <div class="jumbotron jumbotron-fluid">
         <div class="container text-center">
             <h1 class="display-4">{{ plugin.getTranslation('spam') }}</h1>
-            {% if GET.user is not defined or FoundUser is not defined %}
-                <form method="GET" class="text-left">
-                    <label for="user">{{ plugin.getTranslation("user") }}:</label>
-                    <input name='csrf' type='hidden' value='{{ csrf }}'/>
-                    <input name="user" type="text" value="{{ GET.user }}" class="form-control"/>
-                </form>
-            {% endif %}
+            <form method="GET" class="text-left">
+                <label for="user">{{ plugin.getTranslation("user") }}:</label>
+                <input name='csrf' type='hidden' value='{{ csrf }}'/>
+                <input name="user" type="text" value="{{ GET.user }}" class="form-control"/>
+            </form>
         </div>
     </div>
 
-    {% if FoundUser is defined %}
+    {% if FoundUser is defined and FoundUser.id is defined %}
         <div class="container">
             <div class="card">
                 <div class="card-header">
                     {{ plugin.getTranslation("found_user", 1, {"{{ username }}": FoundUser.username}) }}
-                    <span class="float-right">
-                        <a role="button" class="btn btn-danger" href="https://edit.tosdr.org/admin/users/{{ FoundUser.id }}">{{ plugin.getTranslation("view_in_phoenix") }}</a>
+
+                    {% if FoundUser.deactivated %}
+                        <span class="badge badge-danger">{{ plugin.getTranslation("deactivated")|upper }}</span>
+                    {% endif %}
+                    <span class="float-right btn-group">
+                        {% if not FoundUser.deactivated %}
+                            <a role="button" class="btn btn-danger" href="?user={{ GET.user }}&csrf={{ csrf }}&action=deactivate">{{ plugin.getTranslation("deactivate_user") }}</a>
+                        {% endif %}
+                        <a role="button" class="btn btn-info" href="https://edit.tosdr.org/admin/users/{{ FoundUser.id }}">{{ plugin.getTranslation("view_in_phoenix") }}</a>
                     </span>
                 </div>
                 <div class="card-body">
@@ -93,6 +98,26 @@ Die Variablen unten sind sehr wichtig bitte bei jeder Datei setzen!
             </div>
         </div>
     {% endif %}
+    {% if FoundUser is defined and FoundUser.id is not defined %}
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    {{ plugin.getTranslation("found_users", FoundUser|length) }}
+                </div>
+                <div class="card-body">
+                    {% for user in FoundUser %}
+                        <a href='?user=id:{{ user.id }}&csrf={{ csrf }}'>
+                            <p>
+                                <span class="badge badge-primary">{{ user.id }}</span> - {{ user.username }} - <span class="badge badge-primary">{{ user.email }}</span>
+                            </p>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-
+    <div class='container mt-4'>
+        <div class='alert alert-info'>{{ plugin.getTranslation("spam_tip") }}</div>
+    </div>
 {% endblock %}

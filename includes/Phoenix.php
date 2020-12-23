@@ -67,7 +67,7 @@ class Phoenix {
             return false;
         }
 
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function fetchCaseCommentsByUser($ID) {
@@ -78,7 +78,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -92,7 +92,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -106,7 +106,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -120,7 +120,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -134,7 +134,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID, ":Type" => $Type));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
         return true;
     }
@@ -147,7 +147,7 @@ class Phoenix {
         $statement->execute();
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -161,7 +161,7 @@ class Phoenix {
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
-            return false;
+            return array();
         }
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -192,7 +192,7 @@ class Phoenix {
             return false;
         }
 
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function fetchByUsername($Username) {
@@ -206,7 +206,7 @@ class Phoenix {
             return false;
         }
 
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

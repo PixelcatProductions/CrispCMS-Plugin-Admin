@@ -37,6 +37,15 @@
                 "change_success": "Password changed!",
                 "user": "User",
                 "login_failed": "Login failed!",
+                "user_not_found": "User not found!",
+                "spam_tip": "Tip! You can use email:doe@mail.com or username:JohnDoe or id:123 to narrow your query!",
+                "multiple_matches_plural": "I have found {{ count }} users matching that query, please narrow it!",
+                "found_users_plural": "Found users: {{ count }}",
+                "csrf_mismatch": "CSRF Mismatch, use the box again!",
+                "deactivate_user": "Deactivate user!",
+                "user_deactivated": "User has been deactivated",
+                "failed_user_deactivated": "Failed to deactivate user!",
+                "deactivated": "Deactivated",
                 "notice_spam_search": "Use the box below to search for a username, email address or User ID"
             },
             "de": {
