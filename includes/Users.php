@@ -39,7 +39,7 @@ class Users {
      * Initiate the database, else Database_Connection is null :-)
      */
     private static function initDB() {
-        $DB = new \crisp\core\MySQL();
+        $DB = new \crisp\core\Postgres();
         self::$Database_Connection = $DB->getDBConnector();
     }
 
@@ -51,13 +51,13 @@ class Users {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM Users");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM users");
         $statement->execute();
 
         $Array = array();
 
         foreach ($statement->fetchAll(\PDO::FETCH_ASSOC) as $User) {
-            array_push($Array, new \crisp\plugin\admin\User($User["ID"]));
+            array_push($Array, new \crisp\plugin\admin\PhoenixUser($User["id"]));
         }
         return $Array;
     }
@@ -71,7 +71,7 @@ class Users {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM Users WHERE ID = :Email");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM users WHERE id = :Email");
         $statement->execute(array(":Email" => $Email));
 
         if ($statement->rowCount() === 0) {
@@ -80,7 +80,7 @@ class Users {
 
         $User = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        return new \crisp\plugin\admin\User($User["ID"]);
+        return new \crisp\plugin\admin\PhoenixUser($User["id"]);
     }
 
     /**
@@ -92,7 +92,7 @@ class Users {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM Users WHERE Email = :Email");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM users WHERE email = :Email");
         $statement->execute(array(":Email" => $Email));
 
         if ($statement->rowCount() === 0) {
@@ -101,23 +101,6 @@ class Users {
 
         $User = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        return new \crisp\plugin\admin\User($User["ID"]);
+        return new \crisp\plugin\admin\PhoenixUser($User["id"]);
     }
-
-    /**
-     * Creates a new user. This dummy user has no information saved, please use the \crisp\plugin\admin\User functions
-     * @return \crisp\plugin\admin\User The Object of the User.
-     */
-    public static function create() {
-        if (self::$Database_Connection === null) {
-            self::initDB();
-        }
-        $statement = self::$Database_Connection->prepare("INSERT INTO Users () VALUES ()");
-        $statement->execute();
-        if ($statement->rowCount() > 0) {
-            return new \crisp\plugin\admin\User(self::$Database_Connection->lastInsertId());
-        }
-        throw new Exception("Failed to create user");
-    }
-
 }
