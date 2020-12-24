@@ -64,9 +64,9 @@ include __DIR__ . '/includes/Users.php';
 include __DIR__ . '/includes/PhoenixUser.php';
 
 if (CURRENT_UNIVERSE == \crisp\Universe::UNIVERSE_TOSDR) {
-    \crisp\core\Template::addtoNavbar("admin", '<span class="badge badge-danger"><i class="fas fa-shield-alt"></i> ADMIN</span>', "/admin_dashboard", "_self", -1, "right");
+    \crisp\core\Theme::addtoNavbar("admin", '<span class="badge badge-danger"><i class="fas fa-shield-alt"></i> ADMIN</span>', "/admin_dashboard", "_self", -1, "right");
 } else {
-    \crisp\core\Template::addtoNavbar("login", $this->getTranslation("login"), "/login", "_self", 99);
+    \crisp\core\Theme::addtoNavbar("login", $this->getTranslation("login"), "/login", "_self", 99);
 }
 
 if (isset($_SESSION[\crisp\core\Config::$Cookie_Prefix . "session_login"])) {
