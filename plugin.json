@@ -61,11 +61,11 @@
         "createKVStorageItems": {
 
         },
-        "activateDependencies": []
+        "activateDependencies": ["heroku"]
     },
     "onUninstall": {
         "deleteData": true,
-        "deactivateDependencies": [],
+        "deactivateDependencies": ["heroku"],
         "purgeDependencies": []
     }
 }
