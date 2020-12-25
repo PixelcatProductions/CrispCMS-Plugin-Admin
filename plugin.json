@@ -1,5 +1,9 @@
 {
     "name": "Admin Panel Plugin",
+    "version": "1.0.0",
+    "testedVersion": ">=0.0.5",
+    "incompatibleVersion": "<0.0.5",
+    "repository": "https://github.com/PixelcatProductions/CrispCMS-Plugin-Admin",
     "description": "An admin panel plugin for crisp",
     "hookFile": "hook.php",
     "author": "Justin René Back <jback@pixelcatproductions.net>",
@@ -46,7 +50,36 @@
                 "user_deactivated": "User has been deactivated",
                 "failed_user_deactivated": "Failed to deactivate user!",
                 "deactivated": "Deactivated",
-                "notice_spam_search": "Use the box below to search for a username, email address or User ID"
+                "notice_spam_search": "Use the box below to search for a username, email address or User ID",
+                "unknown": "Unknown Version",
+                "compatible": "Compatible Plugin",
+                "may_be_incompatible": "Plugin may be incompatible",
+                "incompatible": "Incompatible Plugin",
+                "integrity_check": "Check integrity",
+                "refresh_translation": "Refresh Translations",
+                "reset_storage": "Reset Storage",
+                "uninstall": "Uninstall",
+                "install": "Install",
+                "integrity_failed": "Integrity check not successful! Please reinstall plugin.",
+                "success": "Success!",
+                "integrity_ok": "Integrity of plugin is ok!",
+                "failed": "Woops!",
+                "uninstalled": "Plugin uninstalled!",
+                "uninstall_failed": "Failed to uninstall plugin!",
+                "installed": "Plugin has been installed!",
+                "install_failed": "Failed to install plugin!",
+                "error_no_plugin_available": "No plugins available for installation!",
+                "error_no_plugin_available_description": "No plugins have been found in the plugin folder that are not installed!",
+                "error_no_plugin_installed": "No plugins installed!",
+                "error_no_plugin_installed_description": "No plugins have been installed!",
+                "refreshed": "Plugin refreshed",
+                "reset_storage_failed": "Plugin storage reset has failed!",
+                "refresh_translations_failed": "Plugin storage refresh has failed!",
+                "none": "None",
+                "missing": "Missing",
+                "dependencies": "Dependencies",
+                "plugins": "Plugins",
+                "repository": "Repository"
             },
             "de": {
                 "login": "Admin Login",
@@ -59,7 +92,7 @@
             }
         },
         "createKVStorageItems": {
-
+            
         },
         "activateDependencies": ["heroku"]
     },
