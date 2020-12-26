@@ -36,6 +36,9 @@
             <li class="nav-item {% if currentPage == "admin_plugins" %} active{% endif %}">
                 <a class="nav-link {% if currentPage == "admin_plugins" %} active{% endif %}" href="/{{ locale }}/admin_plugins">{{ plugin.getTranslation('plugins') }}</a>
             </li>
+            <li class="nav-item {% if currentPage == "admin_apistats" %} active{% endif %}">
+                <a class="nav-link {% if currentPage == "admin_apistats" %} active{% endif %}" href="/{{ locale }}/admin_apistats">{{ plugin.getTranslation('apistats') }}</a>
+            </li>
         </ul>
     </div>
 </nav> 

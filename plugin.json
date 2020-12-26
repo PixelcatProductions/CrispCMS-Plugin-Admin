@@ -79,7 +79,11 @@
                 "missing": "Missing",
                 "dependencies": "Dependencies",
                 "plugins": "Plugins",
-                "repository": "Repository"
+                "repository": "Repository",
+                "apistats": "API Stats",
+                "count": "Count",
+                "interface": "Interface",
+                "query": "Query"
             },
             "de": {
                 "login": "Admin Login",
@@ -92,7 +96,7 @@
             }
         },
         "createKVStorageItems": {
-            
+
         },
         "activateDependencies": ["heroku"]
     },
