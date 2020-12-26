@@ -1,8 +1,8 @@
 {
     "name": "Admin Panel Plugin",
-    "version": "1.0.0",
-    "testedVersion": ">=0.0.5",
-    "incompatibleVersion": "<0.0.5",
+    "version": "1.0.1",
+    "testedVersion": ">=0.0.8-beta.RC3",
+    "incompatibleVersion": "<0.0.8-beta.RC3",
     "repository": "https://github.com/PixelcatProductions/CrispCMS-Plugin-Admin",
     "description": "An admin panel plugin for crisp",
     "hookFile": "hook.php",
