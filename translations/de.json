@@ -1,0 +1,9 @@
+{
+    "login": "Admin Login",
+    "email": "Deine E-Mail:",
+    "enter_email": "Gib deine E-Mail ein",
+    "password": "Dein Passwort:",
+    "enter_password": "Gib dein Passwort ein",
+    "submit": "Einloggen",
+    "login_success": "Erfolgreich angemeldet"
+}

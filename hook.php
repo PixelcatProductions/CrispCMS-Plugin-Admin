@@ -17,33 +17,6 @@
  * limitations under the License.
  */
 
-/** @var crisp\core\Plugin $this */
-$this->registerInstallHook(function($Callback) {
-    echo "Creating SQL Tables" . PHP_EOL;
-    $SQL = "CREATE TABLE `Sessions` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `Token` VARCHAR(255) NOT NULL,
-  `User` INT(11) NOT NULL,
-  `CreatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `Identifier` VARCHAR(255) NOT NULL DEFAULT 'login',
-  PRIMARY KEY (`Token`),
-  KEY `ID` (`ID`)
-) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;";
-
-
-    echo $SQL . PHP_EOL;
-    $Mysql = new \crisp\core\MySQL();
-
-    $DB = $Mysql->getDBConnector();
-
-    $DB->beginTransaction();
-
-    $DB->query($SQL);
-
-    $DB->commit();
-});
-
-
 $this->registerUninstallHook(function($Callback) {
     echo "Removing SQL Tables" . PHP_EOL;
     $SQL = "DROP TABLE `Sessions`;";
