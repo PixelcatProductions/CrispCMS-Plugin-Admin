@@ -72,5 +72,7 @@
     "apistats": "API Stats",
     "count": "Count",
     "interface": "Interface",
-    "query": "Query"
+    "query": "Query",
+    "lookup_comments_by_links": "Purge all comments containing spammy hyperlinks",
+    "purge_cron_created": "Created purge cron, executing in the next minute!"
 }

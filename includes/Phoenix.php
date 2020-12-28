@@ -70,11 +70,71 @@ class Phoenix {
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function fetchCaseCommentsDistinctSpam() {
+
+        if (self::$Database_Connection === null) {
+            self::initDB();
+        }
+        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), case_id, id, summary FROM case_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement->execute();
+
+        if ($statement->rowCount() === 0) {
+            return array();
+        }
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function fetchTopicCommentsDistinctSpam() {
+
+        if (self::$Database_Connection === null) {
+            self::initDB();
+        }
+        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), topic_id, id, summary FROM topic_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement->execute();
+
+        if ($statement->rowCount() === 0) {
+            return array();
+        }
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function fetchServiceCommentsDistinctSpam() {
+
+        if (self::$Database_Connection === null) {
+            self::initDB();
+        }
+        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), service_id, id, summary FROM service_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement->execute();
+
+        if ($statement->rowCount() === 0) {
+            return array();
+        }
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function fetchPointCommentsDistinctSpam() {
+
+        if (self::$Database_Connection === null) {
+            self::initDB();
+        }
+        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), point_id, id, summary FROM point_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement->execute();
+
+        if ($statement->rowCount() === 0) {
+            return array();
+        }
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public static function fetchCaseCommentsByUser($ID) {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM case_comments WHERE user_id = :ID");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM case_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -88,7 +148,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM document_comments WHERE user_id = :ID");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM document_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -102,7 +162,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM topic_comments WHERE user_id = :ID");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM topic_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -116,7 +176,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM point_comments WHERE user_id = :ID");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM point_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -157,7 +217,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM service_comments WHERE user_id = :ID");
+        $statement = self::$Database_Connection->prepare("SELECT * FROM service_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {

@@ -1,5 +1,6 @@
 <?php
 
+/** @var \crisp\core\Plugin $this */
 include __DIR__ . '/../Phoenix.php';
 
 if (!isset($_SESSION[\crisp\core\Config::$Cookie_Prefix . "session_login"])) {
@@ -17,8 +18,19 @@ if (!$User->isSessionValid() || CURRENT_UNIVERSE != crisp\Universe::UNIVERSE_TOS
 if (!isset($_SESSION[crisp\core\Config::$Cookie_Prefix . "_csrf"])) {
     $_SESSION[crisp\core\Config::$Cookie_Prefix . "_csrf"] = crisp\core\Crypto::UUIDv4("csrf_");
 }
-
-if (!isset($_GET["user"])) {
+if (isset($_GET["lookup"])) {
+    if ($_GET["csrf"] !== $_SESSION[crisp\core\Config::$Cookie_Prefix . "_csrf"]) {
+        $_vars["Notice"] = array("Text" => $this->getTranslation("csrf_mismatch"), "Type" => "danger", "Icon" => "fas fa-exclamation-triangle");
+    } else {
+        switch ($_GET["lookup"]) {
+            case "spam_by_comments":
+                if ($this->createCron("spam_by_comments", null, "10 SECOND", true)) {
+                    $_vars["Notice"] = array("Text" => $this->getTranslation("purge_cron_created"), "Type" => "success", "Icon" => "fas fa-check");
+                }
+                break;
+        }
+    }
+} elseif (!isset($_GET["user"])) {
     $_vars["Notice"] = array("Text" => $this->getTranslation("notice_spam_search"), "Type" => "primary", "Icon" => "fas fa-search");
 } else {
 
@@ -66,23 +78,17 @@ if (!isset($_GET["user"])) {
                 switch ($_GET["action"]) {
                     case "clear_points":
                         foreach ($_vars["PointComments"] as $Index => $Comment) {
-                            if (!crisp\plugin\admin\Phoenix::isInSpams($Comment["id"], "PointComment")) {
-                                $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "PointComment"));
-                            }
+                            $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "PointComment"));
                         }
                         break;
                     case "clear_topic":
                         foreach ($_vars["TopicComments"] as $Index => $Comment) {
-                            if (!crisp\plugin\admin\Phoenix::isInSpams($Comment["id"], "TopicComment")) {
-                                $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "TopicComment"));
-                            }
+                            $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "TopicComment"));
                         }
                         break;
                     case "clear_case":
                         foreach ($_vars["CaseComments"] as $Index => $Comment) {
-                            if (!crisp\plugin\admin\Phoenix::isInSpams($Comment["id"], "CaseComment")) {
-                                $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "CaseComment"));
-                            }
+                            $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "CaseComment"));
                         }
                         break;
                     case "clear_service":
@@ -94,9 +100,7 @@ if (!isset($_GET["user"])) {
                         break;
                     case "clear_document":
                         foreach ($_vars["DocumentComments"] as $Index => $Comment) {
-                            if (!crisp\plugin\admin\Phoenix::isInSpams($Comment["id"], "DocumentComment")) {
-                                $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "DocumentComment"));
-                            }
+                            $Array[] = (crisp\plugin\admin\Phoenix::addSpamComment($Comment["id"], "DocumentComment"));
                         }
                         break;
                 }
