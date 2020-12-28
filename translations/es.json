@@ -72,5 +72,7 @@
     "apistats": "Estadísticas API",
     "count": "Cuenta",
     "interface": "Interfaz",
-    "query": "Búsqueda"
+    "query": "Búsqueda",
+    "lookup_comments_by_links": "Eliminar todos los comentarios que contienen hipervínculos de spam",
+    "purge_cron_created": "Cron de eliminación creado, ¡ejecución en el próximo minuto!"
 }
