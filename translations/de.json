@@ -72,5 +72,7 @@
     "notice_spam_search": "Verwenden Sie das folgende Feld, um nach einem Benutzernamen, einer E-Mail-Adresse oder einer Benutzer-ID zu suchen",
     "integrity_failed": "Integritätsprüfung nicht erfolgreich! Bitte installieren Sie das Plugin neu.",
     "error_no_plugin_available_description": "Es wurden keine Plugins im Plugin-Ordner gefunden, die nicht installiert sind!",
-    "spam": "Spam-Reiniger"
+    "spam": "Spam-Reiniger",
+    "lookup_comments_by_links": "Bereinigen Sie alle Kommentare, die spammige Hyperlinks enthalten",
+    "purge_cron_created": "Purge-Cron erstellt, wird in der nächsten Minute ausgeführt!"
 }
