@@ -72,5 +72,7 @@
     "password_mismatch": "Les mots-de-passe ne coïncident pas !",
     "spam_tip": "Astuce ! Vous pouvez utiliser un e-mail : doe@mail.com ou nom d'utilisateur : JohnDoe ou identifiant id :123 pour restreindre votre requête !",
     "csrf_mismatch": "Le jeton CSRF ne correspond pas, utilisez la boîte à nouveau !",
-    "notice_spam_search": "Cherchez ci-dessous un nom d'utilisateur, une adresse mail ou un identifiant"
+    "notice_spam_search": "Cherchez ci-dessous un nom d'utilisateur, une adresse mail ou un identifiant",
+    "lookup_comments_by_links": "Retirer tous les commentaires comportant des liens de spam",
+    "purge_cron_created": "Le cron d'élimination a été créé, exécution dans la prochaine minute !"
 }
