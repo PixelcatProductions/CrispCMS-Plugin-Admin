@@ -77,7 +77,7 @@ switch ($_POST["action"]) {
             $this->response(["REFRESH_STORAGE_FAILED"], \crisp\api\Translation::fetch("plugin_admin_refresh_storage_failed"));
             exit;
         }
-        $check = \crisp\core\Plugins::refreshKVStorage($_POST["plugin"], \crisp\core\Plugins::getPluginMetadata($_POST["plugin"]));
+        $check = \crisp\core\Plugins::installKVStorage($_POST["plugin"], \crisp\core\Plugins::getPluginMetadata($_POST["plugin"]));
         if ($check) {
             $this->response(false, \crisp\api\Translation::fetch("plugin_admin_refreshed"));
         } else {
@@ -89,7 +89,7 @@ switch ($_POST["action"]) {
             $this->response(["REFRESH_TRANSLATIONS_FAILED"], \crisp\api\Translation::fetch("admin_refresh_translations_failed"));
             exit;
         }
-        $check = \crisp\core\Plugins::refreshTranslations($_POST["plugin"], \crisp\core\Plugins::getPluginMetadata($_POST["plugin"]));
+        $check = \crisp\core\Plugins::installTranslations($_POST["plugin"], \crisp\core\Plugins::getPluginMetadata($_POST["plugin"]));
         if ($check) {
             $this->response(false, \crisp\api\Translation::fetch("plugin_admin_refreshed"));
         } else {
