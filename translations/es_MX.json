@@ -1,1 +1,19 @@
-{}
+{
+    "warning_special_account": "¡Cuidado! Esta cuenta está marcada como especial. Se desactivaron las acciones.",
+    "login_success": "Te has conectado con éxito",
+    "found_topic_comments": "Comentarios de Tema encontrados",
+    "found_point_comments": "Comentarios de Punto encontrados",
+    "login": "Acceder Como Admin",
+    "email": "Tu email:",
+    "enter_email": "Escribe tu dirección de correo electrónico",
+    "password": "Tu Contraseña:",
+    "enter_password": "Escribe tu contraseña",
+    "submit": "Acceder",
+    "spam": "Limpiador de Spam",
+    "found_user": "¡Usuario {{ username }} encontrado!",
+    "dashboard": "Panel de Control",
+    "found_case_comments": "Comentarios de Caso encontrados",
+    "found_service_comments": "Comentarios de Servicio encontrados",
+    "found_document_comments": "Comentarios de Documento encontrados",
+    "view_in_phoenix": "Ver Usuario en Phoenix"
+}
