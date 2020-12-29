@@ -37,7 +37,7 @@ class PhoenixUser {
      * The userID
      * @var int
      */
-    public int $UserID;
+    public ?int $UserID = null;
 
     /**
      * If constructor has not been initiated with a numeric value, this will hold the user details as an array

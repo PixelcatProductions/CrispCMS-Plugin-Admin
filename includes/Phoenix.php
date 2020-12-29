@@ -75,7 +75,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), case_id, id, summary FROM case_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id FROM case_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'CaseComment' WHERE t2.spammable_id IS NULL AND (lower(t1.summary) LIKE '%<a/>%')");
         $statement->execute();
 
         if ($statement->rowCount() === 0) {
@@ -90,7 +90,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), topic_id, id, summary FROM topic_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM topic_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'TopicComment' WHERE t2.spammable_id IS NULL AND (lower(t1.summary) LIKE '%<a/>%')");
         $statement->execute();
 
         if ($statement->rowCount() === 0) {
@@ -99,13 +99,13 @@ class Phoenix {
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
-
+    
     public static function fetchServiceCommentsDistinctSpam() {
 
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), service_id, id, summary FROM service_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM service_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'ServiceComment' WHERE t2.spammable_id IS NULL AND (lower(t1.summary) LIKE '%<a/>%')");
         $statement->execute();
 
         if ($statement->rowCount() === 0) {
@@ -114,13 +114,16 @@ class Phoenix {
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
+    
+    
+
 
     public static function fetchPointCommentsDistinctSpam() {
 
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT DISTINCT(user_id), point_id, id, summary FROM point_comments WHERE (summary LIKE '%<a href%' OR summary LIKE '%<a title%' OR summary LIKE '%<a herf%') AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM point_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'PointComment' WHERE t2.spammable_id IS NULL AND (lower(t1.summary) LIKE '%<a/>%')");
         $statement->execute();
 
         if ($statement->rowCount() === 0) {
@@ -134,7 +137,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM case_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM case_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'CaseComment' WHERE t2.spammable_id IS NULL AND t1.user_id = :ID");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -148,7 +151,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM document_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM document_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'DocumentComment' WHERE t2.spammable_id IS NULL AND t1.user_id = :ID");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -162,7 +165,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM topic_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM topic_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'TopicComment' WHERE t2.spammable_id IS NULL AND t1.user_id = :ID");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
@@ -176,7 +179,7 @@ class Phoenix {
         if (self::$Database_Connection === null) {
             self::initDB();
         }
-        $statement = self::$Database_Connection->prepare("SELECT * FROM point_comments WHERE user_id = :ID AND id NOT IN (SELECT spammable_id FROM spams)");
+        $statement = self::$Database_Connection->prepare("SELECT t1.id, t1.user_id FROM point_comments t1 LEFT JOIN spams t2 ON t1.id = t2.spammable_id AND t2.spammable_type = 'PointComment' WHERE t2.spammable_id IS NULL AND t1.user_id = :ID");
         $statement->execute(array(":ID" => $ID));
 
         if ($statement->rowCount() === 0) {
