@@ -25,7 +25,7 @@ if (isset($_GET["lookup"])) {
         switch ($_GET["lookup"]) {
             case "spam_by_comments":
                 if ($this->createCron("spam_by_comments", null, "10 SECOND", true)) {
-                    $_vars["Notice"] = array("Text" => $this->getTranslation("purge_cron_created"), "Type" => "success", "Icon" => "fas fa-check");
+                    $_vars["Notice"] = array("Text" => $this->getTranslation("purge_cron_created") . '<img width="128" src="/plugins/admin/img/gone.gif"/>', "Type" => "success", "Icon" => "fas fa-check");
                 }
                 break;
         }
