@@ -1,8 +1,8 @@
 <?php
 
-include __DIR__ . '/Phoenix.php';
-include __DIR__ . '/PhoenixUser.php';
-include __DIR__ . '/Users.php';
+include_once __DIR__ . '/Phoenix.php';
+include_once __DIR__ . '/PhoenixUser.php';
+include_once __DIR__ . '/Users.php';
 
 
 echo "Cron for admin plugin" . PHP_EOL;

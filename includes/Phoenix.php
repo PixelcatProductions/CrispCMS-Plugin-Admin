@@ -99,7 +99,7 @@ class Phoenix {
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
-    
+
     public static function fetchServiceCommentsDistinctSpam() {
 
         if (self::$Database_Connection === null) {
@@ -114,9 +114,6 @@ class Phoenix {
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
-    
-    
-
 
     public static function fetchPointCommentsDistinctSpam() {
 
